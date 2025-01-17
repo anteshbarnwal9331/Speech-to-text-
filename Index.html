@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice to Text Converter</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        textarea { width: 80%; height: 200px; font-size: 18px; padding: 10px; }
+        button { font-size: 18px; padding: 10px 20px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Voice to Text Converter</h2>
+    <textarea id="output" placeholder="Your converted text will appear here..."></textarea><br>
+    <button onclick="startSpeechRecognition()">🎤 Start Listening</button>
+
+    <script>
+        function startSpeechRecognition() {
+            let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = "en-US"; // भाषा सेट करें
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                let transcript = event.results[0][0].transcript;
+                document.getElementById("output").value = transcript;
+            };
+
+            recognition.onerror = function(event) {
+                alert("Error occurred: " + event.error);
+            };
+        }
+    </script>
+
+</body>
+</html>
